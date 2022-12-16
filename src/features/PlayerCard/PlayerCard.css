@@ -180,3 +180,8 @@
 .pay-out-inactive {
     display: none;
 }
+
+.end-button {
+    background-color: var(--main-red);
+    border: 3px solid #af0202;
+}

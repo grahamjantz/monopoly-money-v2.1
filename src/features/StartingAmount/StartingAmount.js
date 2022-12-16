@@ -46,7 +46,6 @@ const StartingAmount = () => {
 
   return (
     <div className='starting-amount'>
-      <h4>Room ID: {roomId}</h4>
       <h4>Starting Amount: ${startingAmount}</h4>
       <p>Accept?</p>
       <div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import { getFirestore, query, where, onSnapshot, doc, updateDoc, collection } from "firebase/firestore";
+import { getFirestore, query, where, onSnapshot, doc, updateDoc, collection, deleteDoc } from "firebase/firestore";
 import { app } from '../../utils/firebase';
 
 import './PlayerCard.css'
@@ -17,11 +17,14 @@ export const db = getFirestore(app)
 
 const PlayerCard = () => {
 
+  const navigate = useNavigate()
+
   const [players, setPlayers] = useState(null)
   const [playersListSorted, setPlayersListSorted] = useState(null)
   const [displayAction, setDisplayAction] = useState(false)
   const [currentAction, setCurrentAction] = useState('')
   const [freeParking, setFreeParking] = useState(0)
+  const [displayEndGame, setDisplayEndGame] = useState(false)
 
   const [searchParams, setSearchParams] = useSearchParams()
   const roomId = searchParams.get('room_id')
@@ -108,7 +111,16 @@ const PlayerCard = () => {
     currentAction === '' ? setCurrentAction('Trade') : setCurrentAction('')
   }
 
-  
+  const handleClickEndGame = async () => {
+    console.log('end game')
+    displayEndGame === false ? setDisplayEndGame(true) : setDisplayEndGame(false)
+  }
+
+  const handleEndGameYes = async () => {
+    const docRef = doc(db, 'rooms', roomId)
+    await deleteDoc(docRef)
+    navigate('/')
+  }
   
   const resetStates = () => {
     setDisplayAction(false)
@@ -235,6 +247,18 @@ const PlayerCard = () => {
             return ''
           })
         ) : ''}
+        <div>
+          <button className='end-button' onClick={handleClickEndGame}>END GAME</button>
+          {
+            displayEndGame === false ? '' : (
+              <div>
+                <p>Are you sure?</p>
+                <button onClick={handleEndGameYes}>YES</button>
+                <button onClick={() => setDisplayEndGame(false)}>NO</button>
+              </div>
+            )
+          }
+        </div>
     </div>
   )
 }
