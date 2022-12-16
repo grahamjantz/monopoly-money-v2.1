@@ -1,0 +1,20 @@
+.footer {
+    margin: 3rem 0;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer h5 {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer svg {
+    color: var(--main-red);
+}

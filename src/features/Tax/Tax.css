@@ -1,0 +1,38 @@
+.tax {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.tax-close-button {
+    align-self: flex-end;
+    width: 30px;
+    height: 30px;
+    color: red;
+}
+
+.tax-close-button:hover {
+    cursor: pointer;
+}
+
+.tax-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tax-header h4 {
+    display: flex;
+    flex-direction: column;
+}
+
+.tax-input {
+    display: flex;
+    height: fit-content;
+    align-items: center;
+}
+
+.tax-input input, .tax-input button {
+    height: 50px;
+}

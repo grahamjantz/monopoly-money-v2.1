@@ -1,0 +1,13 @@
+.header {
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.monopoly-logo {
+    min-width: 90%;
+    width: 90%;
+    height: auto;
+}

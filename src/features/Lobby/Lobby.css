@@ -1,0 +1,24 @@
+.lobby {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.lobby ul {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.lobby ul li {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}

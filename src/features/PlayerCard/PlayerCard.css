@@ -1,0 +1,174 @@
+.player-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.leaderboard {
+    width: 90%;
+    min-height: 200px;
+    height: fit-content;
+    max-height: 200px;
+    overflow-y: scroll;
+    background-color: var(--main-red);
+    color: var(--main-white);
+    border: 1px solid black;
+    list-style-position: inside;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.leaderboard ol {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.leaderboard ol li {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.leaderboard ol li:first-of-type {
+    color: var(--dark-green);
+}
+
+.player-info {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid black;
+    background-color: var(--main-white);
+    color: black;
+}
+
+.player-info h3 {
+    text-decoration: underline;
+    height: 100px;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--main-orange);
+    /* color: white; */
+    border: 1px solid black;
+}
+
+.player-info button {
+    height: 50px;
+    padding: 5px;
+    margin: 5px;
+}
+
+.player-stats {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
+.player-stats h4 {
+    height: 100%;
+    width: 50%;
+    background-color: var(--dark-green);
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.actions {
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.action-buttons {
+    width: 100%;
+    display: flex;
+    height: fit-content;
+}
+
+.action-buttons button {
+    width: 50%;
+    z-index: 1;
+}
+
+.go-button, .tax-button {
+    height: fit-content;
+    width: 50%;
+    background-color: var(--main-red);
+    color: black;
+    font-family: 'Monopoly Bold';
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.tax-button {
+    background-color: var(--main-blue2);
+    color: white;
+}
+
+.display-action-true {
+    width: 100%;
+    display: flex;
+    animation: slideIn 1s ;
+    transition: 1s;
+}
+
+.display-action-false {
+    display: none;
+}
+
+.free-parking-display {
+    width: 90%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--main-red);
+    color: white;
+    padding: 1rem;
+    border: 1px solid black;
+}
+
+.free-parking-sub-display {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2rem;
+}
+
+.free-parking-display button, .pay-out-active button {
+    background-color: var(--dark-green);
+    color: black;
+    font-weight: bold;
+}
+
+.pay-out-active {
+    width: 90%;
+    background-color: var(--main-red);
+    color: white;
+    padding: 1rem;
+    border: 1px solid black;
+}
+
+.pay-out-inactive {
+    display: none;
+}
