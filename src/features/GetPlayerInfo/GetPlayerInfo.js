@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import './GetPlayerInfo.css'
 
-import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore/lite'
-import { useSelector } from 'react-redux'
-import { selectRoomId } from '../../AppSlice'
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore/lite'
 import { db } from '../../utils/firebase'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
@@ -14,21 +12,27 @@ const GetPlayerInfo = () => {
   
   const [name, setName] = useState('')
   const [piece, setPiece] = useState()
-  const [options, setOptions] = useState([
-            {value: 'Racecar', text: 'Racecar'},
-            {value: 'Top Hat', text: 'Top Hat'},
-            {value: 'Dog', text: 'Dog'},
-            {value: 'Thimble', text: 'Thimble'},
-            {value: 'Boat', text: 'Boat'},
-            {value: 'Shoe', text: 'Shoe'},
-            {value: 'Iron', text: 'Iron'},
-            {value: 'Wagon', text: 'Wagon'},
-          ])
+  const [options, setOptions] = useState([])
   const [startingAmount, setStartingAmount] = useState(1500)
 
   const [searchParams, setSearchParams] = useSearchParams()
 
   const roomId = searchParams.get('room_id')
+
+  useEffect(() => {
+    setOptions([
+      {value: 'Racecar', text: 'Racecar'},
+      {value: 'Top Hat', text: 'Top Hat'},
+      {value: 'Dog', text: 'Dog'},
+      {value: 'Thimble', text: 'Thimble'},
+      {value: 'Boat', text: 'Boat'},
+      {value: 'Shoe', text: 'Shoe'},
+      {value: 'Iron', text: 'Iron'},
+      {value: 'Wagon', text: 'Wagon'},
+    ])
+    setStartingAmount(1500)
+  }, [])
+
   
   // const roomId = useSelector(selectRoomId)
   // useEffect(() => {
@@ -61,7 +65,6 @@ const GetPlayerInfo = () => {
     for (let i=0; i<8; i++) {
       id = Math.floor(Math.random() * 10000000).toString(26).toUpperCase()
     }
-    console.log(id)
     return id
   }
   

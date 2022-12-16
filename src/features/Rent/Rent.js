@@ -1,60 +1,65 @@
+import { doc, getFirestore, updateDoc } from 'firebase/firestore'
 import React, { useState } from 'react'
-import { AiOutlineClose } from "react-icons/ai";
+import { app } from '../../utils/firebase'
+
 import './Rent.css'
 
-import { useDispatch, useSelector } from 'react-redux'
-import { selectPlayersList, makePayment, selectCurrentPlayer } from '../PlayersList/PlayersListSlice'
+const Rent = ({ players, playerId, roomId, resetStates }) => {
 
-const Rent = ({ setDisplayAction }) => {
+    const db = getFirestore(app)
 
-    const dispatch = useDispatch();
-    const playersList = useSelector(selectPlayersList);
-    const currentPlayer = useSelector(selectCurrentPlayer)
+    const [ownerId, setOwnerId] = useState('')
+    const [amount, setAmount] = useState()
 
-    const [to, setTo] = useState(null);
-    const [amount, setAmount] = useState('')
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        players[0].map((player) => {
+            if (player.player_id === playerId) {
+                player.bank -= amount
+                player.net_worth -= amount
+                player.net_worth <= 0 ? player.active = false : player.active = true
+                return player
+            } else if (player.player_id === ownerId) {
+                player.bank += Number(amount)
+                player.net_worth += Number(amount)
+                player.net_worth <= 0 ? player.active = false : player.active = true
+                return player
+            }
+            return player
+        })
+        const docRef = doc(db, 'rooms', roomId)
 
-    const handleDone = () => {
-        if (currentPlayer !== null && to !== null && amount > 0) {
-            //add logic to move money from one player to another here in PlayersListSlice
-            dispatch(makePayment({to: to, amount: Number(amount)}))
-        }
-        setDisplayAction(false)
+        await updateDoc(docRef, {
+            'players': players[0]
+        })
+        resetStates()
     }
 
   return (
     <div className='rent'>
-        <AiOutlineClose className='rent-close-button' onClick={handleDone}/>
-        <h2>Pay Rent</h2> 
-        <div className='rent-header'>
-            <h4>From: <br/>{currentPlayer ? currentPlayer.name : ''}</h4>
-            <h4>Bank: <br/>${currentPlayer.bank}</h4>
-        </div>
-        <div>
-            <h4>To: {to ? to.name : ''}</h4>
-            {playersList.slice(1).map((player) => {
-                if (player.name !== currentPlayer.name) {
+        <h4>Pay to:</h4>
+        <ul>
+            {players[0].map((player) => {
+                if (player.player_id !== playerId) {
                     return (
-                        <button 
-                            key={player.piece} 
-                            onClick={() => setTo(player)}
-                        >
-                            {player.name}
-                        </button>
-                    )
-                }
-                return ''
+                        <li key={player.player_id} className={ownerId && player.player_id === ownerId ? 'selected' :''}>
+                            <button onClick={() => {setOwnerId(player.player_id)}}>{player.name}</button>
+                        </li>
+                        )
+                    }
+                    return ''
             })}
-        </div>
-        <label htmlFor='amount'>Amount:</label>
-        <div className='rent-input'>
-            <input type='number' name='amount' value={amount} onChange={(e) => setAmount(Math.round(e.target.value))} placeholder='0'/>
-            <button onClick={handleDone}>Done</button>
+        </ul>
+            {
+                ownerId !== '' ? (
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor='amount'>Enter Amount</label>
+                        <input type='text' name='amount' value={amount} placeholder='0' onChange={(e) => setAmount(Number(e.target.value))}/>
 
-        </div>
-        {
-            amount && amount < 0 ? <p>Invalid! Please enter positive number!</p> : ''
-        }
+                        <input type='submit' value='Done'/>
+                    </form>
+                ) : ''
+            }
     </div>
   )
 }

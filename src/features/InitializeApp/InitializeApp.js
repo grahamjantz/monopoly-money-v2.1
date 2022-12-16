@@ -1,5 +1,6 @@
-import { doc, setDoc } from 'firebase/firestore/lite'
 import React from 'react'
+import './InitializeApp.css'
+import { doc, setDoc } from 'firebase/firestore/lite'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { addRoomId } from '../../AppSlice'
@@ -31,16 +32,6 @@ const InitializeApp = () => {
         await setDoc(doc(db, 'rooms', roomId), {
             players: [],
             starting_amount: 1500,
-            piece_options: [
-                {value: 'Racecar', text: 'Racecar'},
-                {value: 'Top Hat', text: 'Top Hat'},
-                {value: 'Dog', text: 'Dog'},
-                {value: 'Thimble', text: 'Thimble'},
-                {value: 'Boat', text: 'Boat'},
-                {value: 'Shoe', text: 'Shoe'},
-                {value: 'Iron', text: 'Iron'},
-                {value: 'Wagon', text: 'Wagon'},
-              ],
             max_player_count: 8,
             room_id: roomId,
             free_parking: 0,
@@ -57,9 +48,9 @@ const InitializeApp = () => {
     <div className='initialize-app'>
         <h2>Welcome!</h2>
         <h4>This web App is designed to replace paper Monopoly money. Please follow the set up instructions to begin using the app.</h4>
-        <h5>For instructions please click <a href='https://github.com/grahamjantz/monopoly-money'>here</a></h5>
         <button onClick={handleHostRoom}>Host Room</button>
         <button onClick={handleJoinRoom}>Join Room</button>
+        <h5>For instructions please click <a href='https://github.com/grahamjantz/monopoly-money'>here</a></h5>
     </div>
   )
 }

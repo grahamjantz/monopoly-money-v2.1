@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { getFirestore, query, where, onSnapshot, doc, updateDoc, collection, increment } from "firebase/firestore";
+import { getFirestore, query, where, onSnapshot, doc, updateDoc, collection } from "firebase/firestore";
 import { app } from '../../utils/firebase';
 
 import './PlayerCard.css'
 
 import Tax from '../Tax/Tax.js'
+import Rent from '../Rent/Rent.js'
+import Buy from '../Buy/Buy.js'
+import Sell from '../Sell/Sell.js'
+import Trade from '../Trade/Trade.js'
+import Bonus from '../Bonus/Bonus.js';
 
-const db = getFirestore(app)
+export const db = getFirestore(app)
 
 const PlayerCard = () => {
 
@@ -16,7 +21,6 @@ const PlayerCard = () => {
   const [playersListSorted, setPlayersListSorted] = useState(null)
   const [displayAction, setDisplayAction] = useState(false)
   const [currentAction, setCurrentAction] = useState('')
-  const [amount, setAmount] = useState('')
   const [freeParking, setFreeParking] = useState(0)
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -55,45 +59,58 @@ const PlayerCard = () => {
   }
   
   
+  const handleClickBonus = () => {
+    displayAction === false ? setDisplayAction(true) : setDisplayAction(false)
+    currentAction === '' ? setCurrentAction('Bonus') : setCurrentAction('')
+  }
+
   const handleClickTax = () => {
     displayAction === false ? setDisplayAction(true) : setDisplayAction(false)
     currentAction === '' ? setCurrentAction('Tax') : setCurrentAction('')
   }
   
-  const handlePayTax = async (e) => {
-    e.preventDefault()
+  
     
-    playersListSorted.map((player) => {
-      if (player.player_id === playerId) {
-        player.bank -= amount
-        player.net_worth -= amount
+    const handleTogglePayout = async () => {
+      playersListSorted.map((player) => {
+        if (player.player_id === playerId) {
+          player.bank += freeParking
+          player.net_worth += freeParking
+          return player
+        }
         return player
-      }
-      return player
-    })
-    updateFreeParking()
-    updatePlayersArray()
-    resetStates()
+      })
+      updatePlayersArray()
+      const docRef = doc(db, 'rooms', roomId)
+      
+      await updateDoc(docRef, {
+        'free_parking': 0
+      })
+    }
+    
+  const handleClickRent = async () => {
+    displayAction === false ? setDisplayAction(true) : setDisplayAction(false)
+    currentAction === '' ? setCurrentAction('Rent') : setCurrentAction('')
+  }
+  
+  const handleClickBuy = async () => {
+    displayAction === false ? setDisplayAction(true) : setDisplayAction(false)
+    currentAction === '' ? setCurrentAction('Buy') : setCurrentAction('')
   }
 
-  const handleTogglePayout = () => {
-    console.log(freeParking)
-    playersListSorted.map((player) => {
-      if (player.player_id === playerId) {
-        player.bank += freeParking
-        player.net_worth += freeParking
-        return player
-      }
-      return player
-    })
-    setFreeParking(0)
-    updatePlayersArray()
-    updateFreeParking()
+  const handleClickSell = () => {
+    displayAction === false ? setDisplayAction(true) : setDisplayAction(false)
+    currentAction === '' ? setCurrentAction('Sell') : setCurrentAction('')
+  }
+
+  const handleClickTrade = () => {
+    displayAction === false ? setDisplayAction(true) : setDisplayAction(false)
+    currentAction === '' ? setCurrentAction('Trade') : setCurrentAction('')
   }
 
   
+  
   const resetStates = () => {
-    setAmount('')
     setDisplayAction(false)
     setCurrentAction('')
   }
@@ -106,34 +123,22 @@ const PlayerCard = () => {
     })
   }
 
-  const updateFreeParking = async () => {
-    const docRef = doc(db, 'rooms', roomId)
-    
-    if (freeParking !== 0) {
-      await updateDoc(docRef, {
-        'free_parking': increment(amount)
-      })
-    } else {
-      await updateDoc(docRef, {
-        'free_parking': freeParking
-      })
-    }
-  }
-
   const displayActionButton = (action) => {
-    if (action === 'Tax') {
-      return <Tax setAmount={setAmount} amount={amount} handlePayTax={handlePayTax}/>
-    } else if (action === 'Rent') {
-      // return <Rent setDisplayAction={setDisplayAction}/>
-    } else if (action === 'Buy') {
-      // return <Buy setDisplayAction={setDisplayAction}/>
-    } else if (action === 'Sell') {
-      // return <Sell setDisplayAction={setDisplayAction}/>
-    } else if (action === 'Trade') {
-      // return <Trade setDisplayAction={setDisplayAction}/>
-    } else if (action === '') {
+    if (action === '') {
       return ''
-    }
+    } else if (action === 'Tax') {
+      return <Tax players={players} playerId={playerId} roomId={roomId} resetStates={resetStates}/>
+    } else if (action === 'Rent') {
+      return <Rent players={players} playerId={playerId} roomId={roomId} resetStates={resetStates}/>
+    } else if (action === 'Buy') {
+      return <Buy players={players} playerId={playerId} roomId={roomId} resetStates={resetStates}/>
+    } else if (action === 'Sell') {
+      return <Sell players={players} playerId={playerId} roomId={roomId} resetStates={resetStates}/>
+    } else if (action === 'Trade') {
+      return <Trade players={players} playerId={playerId} roomId={roomId} resetStates={resetStates}/>
+    } else if (action === 'Bonus') {
+      return <Bonus players={players} playerId={playerId} roomId={roomId} resetStates={resetStates}/>
+    } 
   }
   
   return (
@@ -145,7 +150,7 @@ const PlayerCard = () => {
               <ol>
                 {playersListSorted.map((player) => {
                   return (
-                    <li key={player.player_id}>
+                    <li key={player.player_id} className={player.active === false ? 'lost' : ''}>
                       <h3>{player.name}</h3>
                       <h3>{player.net_worth}</h3>
                     </li>
@@ -161,23 +166,10 @@ const PlayerCard = () => {
             <h3>Free Parking:</h3>
             <h3>${freeParking}</h3>
           </div>
-            <button onClick={handleTogglePayout}>Pay Out</button>
+            <button onClick={handleTogglePayout}>CLAIM</button>
         </div>
 
-{/**************** FREE PARKING PAYOUT DISPLAY ****************/}
-          {/* <div className={`free-parking-pay-out-display ${displayPayOut === true ? 'pay-out-active' : 'pay-out-inactive'}`}>
-            <h3>Select player to receive payout:</h3>
-            {players !== null ? (
-              players[0].map((player) => {
-                return (
-                  <button key={player.player_id} onClick={handlePayOut}>
-                    {player.name}
-                  </button>
-                )
-              })
-            ) : ''
-            }
-        </div> */}
+{/**************** PLAYER CARD DISPLAY ****************/}
         {playersListSorted !== null ? (
           playersListSorted.map((player) => {
             if (player.player_id === playerId) {
@@ -189,22 +181,52 @@ const PlayerCard = () => {
                     <h4>Property Value: <br/> ${player.property_value}</h4>
                     <h4>Net Worth: <br/>${player.net_worth}</h4>
                   </div>
+
+{/**************** ACTION BUTTONS ROW 1 ****************/}
                   <div className='actions'>
                     <div className='action-buttons'>
                       <button className='go-button' onClick={handleClickGo}>GO</button>
+                    </div>
+                    <div className='action-buttons'>
+                      <button onClick={handleClickBonus}>BONUS</button>
                       <button className='tax-button' onClick={handleClickTax}>TAX</button>
+                    </div>
+                    {/* BONUS ACTION */}
+                    <div className={`${displayAction === true ? 'display-action-true' : 'display-action-false'}`}>
+                      {currentAction === 'Bonus' ? displayActionButton('Bonus') : ''}
                     </div>
                     {/* TAX ACTION */}
                     <div className={`${displayAction === true ? 'display-action-true' : 'display-action-false'}`}>
                       {currentAction === 'Tax' ? displayActionButton('Tax') : ''}
                     </div>
+
+{/**************** ACTION BUTTONS ROW 2 ****************/}
                     <div className='action-buttons'>
-                      <button>RENT</button>
-                      <button>BUY</button>
+                      <button onClick={handleClickRent}>RENT</button>
+                      <button onClick={handleClickBuy}>BUY</button>
                     </div>
+                    {/* RENT ACTION */}
+                    <div className={`${displayAction === true ? 'display-action-true' : 'display-action-false'}`}>
+                      {currentAction === 'Rent' ? displayActionButton('Rent') : ''}
+                    </div>
+                    {/* BUY ACTION */}
+                    <div className={`${displayAction === true ? 'display-action-true' : 'display-action-false'}`}>
+                      {currentAction === 'Buy' ? displayActionButton('Buy') : ''}
+                    </div>
+
+{/**************** ACTION BUTTONS ROW 3 ****************/}
                     <div className='action-buttons'>
-                      <button>SELL</button>
-                      <button>TRADE</button>
+                      <button onClick={handleClickSell}>SELL</button>
+                      <button onClick={handleClickTrade}>TRADE</button>
+                    </div>
+
+                    {/* SELL ACTION */}
+                    <div className={`${displayAction === true ? 'display-action-true' : 'display-action-false'}`}>
+                      {currentAction === 'Sell' ? displayActionButton('Sell') : ''}
+                    </div>
+                    {/* TRADE ACTION */}
+                    <div className={`${displayAction === true ? 'display-action-true' : 'display-action-false'}`}>
+                      {currentAction === 'Trade' ? displayActionButton('Trade') : ''}
                     </div>
                   </div>
                 </div>

@@ -21,17 +21,15 @@
 }
 
 .App {
-  font-family: 'Monopoly';
-  letter-spacing: 3px;
   text-align: center;
-  min-height: 100vh;
+  min-height: calc(100vh);
   height: fit-content;
   width: 100%;
   max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color:var(--light-green);
+  justify-content: space-between;
   font-size: 2rem;
 }
 

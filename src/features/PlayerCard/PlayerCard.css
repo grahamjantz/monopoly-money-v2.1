@@ -8,7 +8,6 @@
 
 .leaderboard {
     width: 90%;
-    min-height: 200px;
     height: fit-content;
     max-height: 200px;
     overflow-y: scroll;
@@ -37,6 +36,11 @@
 
 .leaderboard ol li:first-of-type {
     color: var(--dark-green);
+}
+
+.lost {
+    text-decoration: line-through;
+    opacity: 0.5;
 }
 
 .player-info {
@@ -116,6 +120,10 @@
     font-family: 'Monopoly Bold';
     font-weight: bold;
     font-size: 2.5rem;
+}
+
+.go-button {
+    width: 100% !important;
 }
 
 .tax-button {

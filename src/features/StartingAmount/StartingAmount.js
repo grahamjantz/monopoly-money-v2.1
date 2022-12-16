@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 
 import './StartingAmount.css'
 
-import { db } from '../../utils/firebase'
-import { doc, updateDoc } from 'firebase/firestore/lite'
+import { doc, updateDoc } from 'firebase/firestore'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { db } from '../PlayerCard/PlayerCard'
 
 const StartingAmount = () => {
 
@@ -33,8 +33,9 @@ const StartingAmount = () => {
     setAcceptPrice(true)
       
     const docRef = doc(db, 'rooms', roomId)
+
     await updateDoc(docRef, {
-      starting_amount: startingAmount
+      'starting_amount': startingAmount
     })
     navigate(`/get-player-info?room_id=${roomId}`)
   }
@@ -43,17 +44,13 @@ const StartingAmount = () => {
     setAcceptPrice(false)
   }
 
-  const handleChange = (e) => {
-    setStartingAmount(Math.round(e.target.value))
-  }
-
   return (
     <div className='starting-amount'>
       <h4>Room ID: {roomId}</h4>
       <h4>Starting Amount: ${startingAmount}</h4>
       <p>Accept?</p>
       <div>
-        {!acceptPrice ? <input type='number' min='0' placeholder='1500' onChange={handleChange}/> : ''}
+        {!acceptPrice ? <input type='number' min='0' placeholder='1500' onChange={(e) => setStartingAmount(Number(Math.round(e.target.value)))}/> : ''}
       </div>
       <div>
         <button onClick={handleYes}>Yes</button>

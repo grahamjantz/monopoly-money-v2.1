@@ -1,6 +1,7 @@
 .header {
     width: 100%;
     height: fit-content;
+    max-height: 120px;
     margin-bottom: 2rem;
     display: flex;
     justify-content: center;
@@ -9,5 +10,6 @@
 .monopoly-logo {
     min-width: 90%;
     width: 90%;
+    max-width: 500px;
     height: auto;
 }
