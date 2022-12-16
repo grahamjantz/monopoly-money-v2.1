@@ -47,6 +47,7 @@ const Lobby = () => {
   return (
     <div className='lobby'>
       <h4>Lobby</h4>
+      <h2>Room ID: {roomId}</h2>
       <ul>
         {players !== null ? (
           players.map((player) => {
