@@ -8,22 +8,23 @@ const Buy = ({ players, playerId, roomId, resetStates }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    players[0].map((player) => {
-      if (player.player_id === playerId) {
-        player.bank -= amount
-        player.property_value += amount
-        player.net_worth <= 0 ? player.active = false : player.active = true
+    if (amount && amount > 0) {
+      players[0].map((player) => {
+        if (player.player_id === playerId && player.bank >= amount) {
+          player.bank -= amount
+          player.property_value += amount
+          player.net_worth <= 0 ? player.active = false : player.active = true
+          return player
+        }
         return player
-      }
-      return player
-    })
-    const docRef = doc(db, 'rooms', roomId)
-
-    await updateDoc(docRef, {
-      'players': players[0]
-    })
-    resetStates()
+      })
+      const docRef = doc(db, 'rooms', roomId)
+  
+      await updateDoc(docRef, {
+        'players': players[0]
+      })
+      resetStates()
+    }
   }
 
   return (
@@ -33,6 +34,19 @@ const Buy = ({ players, playerId, roomId, resetStates }) => {
             <input type='number' name='amount' placeholder='0' value={amount} onChange={(e) => setAmount(Math.round(e.target.value))}/>
             <input type='submit' value='Done'/>
         </form>
+        {players[0].map((player) => {
+          if (player.player_id === playerId) {
+            if (amount && player.bank < amount) {
+              return (
+                <p key={player.player_id}>Invalid! Insufficient Funds!</p>
+              )
+            }
+          }
+          return ''
+        })}
+        {amount <=0 ? (
+          <p>Invalid Amount!</p>
+        ) : ''}
     </div>
   )
 }

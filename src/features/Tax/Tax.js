@@ -4,21 +4,22 @@ import { db } from '../PlayerCard/PlayerCard'
 
 const Tax = ({ players, playerId, roomId, resetStates}) => {
 
-  const [amount, setAmount] = useState('')
+  const [amount, setAmount] = useState()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     
     players[0].map((player) => {
-      if (player.player_id === playerId) {
+      if (player.player_id === playerId && player.bank >= amount) {
         player.bank -= amount
         player.net_worth -= amount
         player.net_worth <= 0 ? player.active = false : player.active = true
         return player
+      } else {
+        setAmount(0)
       }
       return player
     })
-    
     const docRef = doc(db, 'rooms', roomId)
 
     await updateDoc(docRef, {
@@ -28,15 +29,24 @@ const Tax = ({ players, playerId, roomId, resetStates}) => {
       'free_parking': amount
     })
     resetStates()
+    
     }
 
   return (
     <div className='tax'>
         <form onSubmit={handleSubmit}>
             <label htmlFor='amount'>Enter Amount:</label>
-            <input type='number' name='amount' placeholder='0' value={amount} onChange={(e) => setAmount(Number(Math.round(e.target.value)))}/>
+            <input type='number' name='amount' placeholder='0' value={amount} onChange={(e) => setAmount(Math.round(e.target.value))}/>
             <input type='submit' value='Done'/>
         </form>
+        {players[0].map((player) => {
+          if (player.player_id === playerId && player.bank < amount) {
+            return (
+              <p>Invalid! Insufficient Funds!</p>
+            )
+          }
+          return ''
+        })}
     </div>
   )
 }

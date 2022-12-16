@@ -2,7 +2,7 @@
     width: 100%;
     height: fit-content;
     max-height: 120px;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     display: flex;
     justify-content: center;
 }
@@ -12,4 +12,12 @@
     width: 90%;
     max-width: 500px;
     height: auto;
+}
+
+.header-room-code {
+    width:100%;
+    text-align: center;
+    font-size: 2rem;
+    margin: 1rem 0;
+    font-weight: bold;
 }

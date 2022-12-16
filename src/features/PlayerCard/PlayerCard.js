@@ -155,6 +155,7 @@ const PlayerCard = () => {
   
   return (
     <div className='player-card'>
+{/**************** LEADERBOARD ****************/}
         {
           players !== null ? (
             <div className='leaderboard'>
@@ -164,7 +165,7 @@ const PlayerCard = () => {
                   return (
                     <li key={player.player_id} className={player.active === false ? 'lost' : ''}>
                       <h3>{player.name}</h3>
-                      <h3>{player.net_worth}</h3>
+                      <h3>${player.net_worth}</h3>
                     </li>
                   )
                 })}
@@ -197,7 +198,7 @@ const PlayerCard = () => {
 {/**************** ACTION BUTTONS ROW 1 ****************/}
                   <div className='actions'>
                     <div className='action-buttons'>
-                      <button className='go-button' onClick={handleClickGo}>GO</button>
+                      <button className='go-button' onClick={handleClickGo}>PASS GO</button>
                     </div>
                     <div className='action-buttons'>
                       <button onClick={handleClickBonus}>BONUS</button>

@@ -15,6 +15,8 @@ const JoinRoom = () => {
   const navigate = useNavigate()
 
   const [roomCode, setRoomCode] = useState('')
+  const [err, setErr] = useState(null)
+  console.log(err)
 
   const fetchData = async () => {
     if (roomCode !== '') {
@@ -22,8 +24,10 @@ const JoinRoom = () => {
       const docSnap = await getDoc(docRef)
       
       if (docSnap.exists()) {
-        dispatch(addRoomId(roomCode.toUpperCase()))
+        navigate(`/get-player-info?room_id=${roomCode.toUpperCase()}`)
         return docSnap.data()
+      } else {
+        setErr('err')
       }
     }
   }
@@ -31,17 +35,29 @@ const JoinRoom = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     fetchData()
-    navigate(`/get-player-info?room_id=${roomCode.toUpperCase()}`)
+  }
+
+  const handleClickHome = () => {
+    setErr(null)
+    setRoomCode('')
+    navigate('/')
   }
 
   return (
     <div className='join-room'>
-        <form onSubmit={(e) => handleSubmit(e)}>
-            <label htmlFor='room-name'>Enter Room Code</label>
-            <input name='room-name' type='text' onChange={(e) => setRoomCode(e.target.value)} value={roomCode}/>
-
-            <input className='add-player-button' type='submit' value='Join'/>
-        </form>
+    {err !== null ? (
+      <div>
+        <h5>Error! Invalid Room Code! Try Again!</h5>
+        <button onClick={handleClickHome}>Home</button>
+      </div>
+    ) : (
+          <form onSubmit={(e) => handleSubmit(e)}>
+              <label htmlFor='room-name'>Enter Room Code</label>
+              <input name='room-name' type='text' onChange={(e) => setRoomCode(e.target.value)} value={roomCode}/>
+  
+              <input className='add-player-button' type='submit' value='Join'/>
+          </form>
+    )}
     </div>
   )
 }

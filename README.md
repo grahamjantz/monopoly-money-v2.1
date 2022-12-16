@@ -1,6 +1,6 @@
-# Monopoly Money Tracker App V1 (v2 update coming soon)
+# Monopoly Money Tracker App V2.1
 
-[Live Web App](https://monopoly-money.netlify.app)
+[Live Web App](https://monopoly-money-60c8d.web.app/)
 
 ## Summary:
 This web app is a solution to a problem I was facing when playing monopoly: disorganized money! Using this app replaces the need for monopoly money and does all the calculating for you!
@@ -9,19 +9,28 @@ This web app is a solution to a problem I was facing when playing monopoly: diso
 
 ### Setup:
 
-1. To begin, first select the number of players you wish to have (2-8). 
+1. To begin, first select either Host Room or Join Room. Hosting a room will create a unique room id that other players can connect to using the Join Room screen.
 
-2. You will be prompted to enter their names and their corresponding piece of choice.
+2. If hosting you will be asked to accept the default starting amount of $1500 or enter a custom starting amount. The minimum amount is $1000.
 
-3. You can then accept the default starting amount of $1500 or set a custom starting amount.
+3. Following this the Host will enter their name and select their piece.
 
-### Home Screen
+4. Then you will see the Lobby screen which will show who has joined, what piece they selected, and their net worth set to the starting amount that the Host chose.
+
+5. If joining a game, get the room code from the host and enter it in the join game screen.
+
+6. You will then be able to enter your name and select your piece which will lead you into the Lobby as well.
+
+7. Once all players are in press Done and each player will see their Player Card.
+
+### Player Card
 
 The home screen shows information for each player. This includes: how much money they have in the bank, how much money they have invested in property, and their net worth. 
 
 You will also see action buttons for the following:
 
 - Passing Go (collect $200)
+- Bonus (getting bonus' from Community Chest or Chance)
 - Rent (when landing on another player's property)
 - Buy (for buying new property)
 - Sell (for selling property you own)
@@ -29,25 +38,28 @@ You will also see action buttons for the following:
 
 Please see below for more detailed instructions.
 
-### `Go`
-This is the Pass Go, Collect $200 button. Simply press the button for the player that just passed go and they will collect their $200!
+### `PASS GO`
+This is the Pass Go, Collect $200 button. Simply press the button and you will collect your $200!
+
+### `BONUS`
+This is used for landing on Community Chest or Chance and receiving a bonus payout. Press 'BONUS' and enter the amount and this will be added to your bank and net worth.
 
 ### `Tax`
-This button is used when players land on the income tax block or have to pay money to the center of the board. Simply hit this button and enter the amount to be paid and the Free Parking pot will increase by that amount.
+This button is used when landing on the income tax block or paying money to the center of the board. Simply hit this button and enter the amount to be paid and the amount will be taken out of your bank and the Free Parking pot will increase by that amount.
 
 ### `Free Parking Pay Out`
-When a player lands on the Free Parking tile, press the 'Pay Out' button under the Free Parking pot and select the player to receive the pot. This player's bank account will increase by the amount in the pot and the pot will be reset to $0.
+If you land on the Free Parking tile, press the 'CLAIM' button under the Free Parking pot and you will receive the pot. Your bank account will increase by the amount in the pot and the pot will be reset to $0.
 
 ### `Rent`
-This button is used to pay rent when players land on property owned by other players. First click the rent button, then select which player will be collecting rent, enter the amount and hit done! The renter will pay the owner the corresponding amount!
+This button is used to pay rent when you land on property owned by other players. First click the rent button, then select which player will be collecting rent, enter the amount and hit done! The amount will be taken out of your bank account and the owner will be paid the corresponding amount!
 
 ### `Buy`
-This is for players to buy property, as well as houses/hotels. Should a player wish to purchase property that they have landed on, press this button, enter the purchase amount and the money will be taken out of their bank and moved into their Property Value. The same will happen when purchasing houses or hotels.
+This is used to buy property, as well as houses/hotels. Should you wish to purchase property that you have landed on, press this button, enter the purchase amount and the money will be taken out of your bank and moved into your Property Value. The same will happen when purchasing houses or hotels.
 
 Players' Property Value field tracks the total amount that players invest in property.
 
 ### `Sell`
-This button is for selling property or houses/hotels that players have purchased. If players have not purchased any property they will not be allowed to sell, as there is nothing to sell! When entering an amount it is crucial to input the mortgage price of the property, not the purchase price.
+This button is for selling property or houses/hotels that you have purchased. If you have not purchased any property you will not be allowed to sell, as there is nothing to sell! When entering an amount it is crucial to input the mortgage price of the property, not the purchase price.
 
 When selling property it is important to keep in mind that players only get 1/2 the amount of the property's purchase price. Therefore when selling property, the following occurs:
 
@@ -71,7 +83,7 @@ When selling property it is important to keep in mind that players only get 1/2 
 ### `Trade`
 This button is for trading property between players. If a player has not purchased any property they will be unable to trade. 
 
-To complete the trade first enter the value of the property to be traded away, (this will be the purchase price paid for the property). Then select which player will be the opposing trader and enter the value of the property they will be trading. Once this is complete, press 'Done' to complete the trade.
+To complete the trade first select the player you will be trading with. If they have property value to trade away you can then enter the value of their property. Then enter the value of the property you will be trading away and hit done!
 
 **Note**
 
@@ -97,4 +109,9 @@ When trading the following will occur:
 The game ends when there is only one player with any net worth remaining.
 
 If a player's Net Worth hits $0 they lose the game and are eliminated. Their player card will be grayed out and sorted to the bottom of the player cards. The leaderboard will also reflect this elimination by crossing out that players' name.
+
+Following this press the 'END GAME' button, you will be asked if you are sure. If so, hit yes and you will return to the first screen to select either Host Game or Join Game.
+
+**Note**
+Ending the game is IRREVERSIBLE you will not be able to join back into the game you were in and any players still in that room will not be able to do anything!
 

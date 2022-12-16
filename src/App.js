@@ -8,7 +8,7 @@ import JoinRoom from './features/JoinRoom/JoinRoom';
 import Lobby from './features/Lobby/Lobby';
 import PlayerCard from './features/PlayerCard/PlayerCard';
 import StartingAmount from './features/StartingAmount/StartingAmount';
-import Header from './features/header/Header'
+import Header from './features/Header/Header'
 import Footer from './features/Footer/Footer'
 
 function App() {

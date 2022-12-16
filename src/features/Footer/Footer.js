@@ -9,7 +9,7 @@ const Footer = () => {
         <h5>Created with {<BsFillSuitHeartFill />}  and React + Redux</h5>
         <h6>by</h6>
         <h5>Graham Jantz</h5>
-        <a href='https://github.com/grahamjantz/monopoly-money'>Help</a>
+        <a href='https://github.com/grahamjantz/monopoly-money-v2.1' target='_blank'>Help</a>
     </div>
   )
 }
