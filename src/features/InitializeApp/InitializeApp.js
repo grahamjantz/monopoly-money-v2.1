@@ -50,7 +50,7 @@ const InitializeApp = () => {
         <h4>This web app is designed to replace paper Monopoly money. Please follow the set up instructions to begin using the app.</h4>
         <button onClick={handleHostRoom}>Host Room</button>
         <button onClick={handleJoinRoom}>Join Room</button>
-        <h5>For instructions please click <a href='https://github.com/grahamjantz/monopoly-money-v2.1' target='_blank'>here</a></h5>
+        <h5>For instructions please click <a href='https://github.com/grahamjantz/monopoly-money-v2.1' rel="noreferrer" target='_blank'>here</a></h5>
     </div>
   )
 }

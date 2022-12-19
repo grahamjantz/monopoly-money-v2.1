@@ -5,12 +5,9 @@ import './JoinRoom.css'
 import { doc, getDoc } from 'firebase/firestore/lite'
 import { db } from '../../utils/firebase'
 import { useNavigate } from 'react-router'
-import { useDispatch } from 'react-redux'
-import { addRoomId } from '../../AppSlice'
 
 const JoinRoom = () => {
 
-  const dispatch = useDispatch()
 
   const navigate = useNavigate()
 
