@@ -1,6 +1,6 @@
 import React from 'react'
 import './InitializeApp.css'
-import { doc, setDoc } from 'firebase/firestore/lite'
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore/lite'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { addRoomId } from '../../AppSlice'
@@ -35,7 +35,8 @@ const InitializeApp = () => {
             max_player_count: 8,
             room_id: roomId,
             free_parking: 0,
-        })
+            timestamp: serverTimestamp()
+        })  
         dispatch(addRoomId(roomId))
         navigate(`/starting-amount?room_id=${roomId}`)
     }
