@@ -9,7 +9,7 @@ import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBqVODhFQ8rzXL1oRtkt6zkRIbkWgzAKuY",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "monopoly-money-60c8d.firebaseapp.com",
   projectId: "monopoly-money-60c8d",
   storageBucket: "monopoly-money-60c8d.appspot.com",
@@ -22,7 +22,7 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 const appCheck = initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider('6LfeyNQjAAAAAFlHs6NaHacGXvz394ycs6bGmc0Y'),
+  provider: new ReCaptchaV3Provider(`${process.env.REACT_APP_FIREBASE_APP_CHECK_KEY}`),
   isTokenAutoRefreshEnabled: true
 })
 
