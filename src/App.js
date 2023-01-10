@@ -10,6 +10,7 @@ import PlayerCard from './features/PlayerCard/PlayerCard';
 import StartingAmount from './features/StartingAmount/StartingAmount';
 import Header from './features/Header/Header'
 import Footer from './features/Footer/Footer'
+import EndGame from './features/EndGame/EndGame';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path='/get-player-info' element={<GetPlayerInfo />}></Route>
           <Route path='/lobby' element={<Lobby />}></Route>
           <Route path='/player-card' element={<PlayerCard />}></Route>
+          <Route path='/end-game' element={<EndGame />}></Route>
         </Routes>
       </div>
       <Footer />

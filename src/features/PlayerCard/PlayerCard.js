@@ -112,14 +112,11 @@ const PlayerCard = () => {
   }
 
   const handleClickEndGame = async () => {
-    console.log('end game')
     displayEndGame === false ? setDisplayEndGame(true) : setDisplayEndGame(false)
   }
 
   const handleEndGameYes = async () => {
-    const docRef = doc(db, 'rooms', roomId)
-    await deleteDoc(docRef)
-    navigate('/')
+    navigate(`/end-game?room_id=${roomId}`)
   }
   
   const resetStates = () => {

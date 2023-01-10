@@ -21,9 +21,9 @@ const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 
-const appCheck = initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider(`${process.env.REACT_APP_FIREBASE_APP_CHECK_KEY}`),
-  isTokenAutoRefreshEnabled: true
-})
+// const appCheck = initializeAppCheck(app, {
+//   provider: new ReCaptchaV3Provider(`${process.env.REACT_APP_FIREBASE_APP_CHECK_KEY}`),
+//   isTokenAutoRefreshEnabled: true
+// })
 
 export const db = getFirestore(app)
