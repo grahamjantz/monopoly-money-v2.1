@@ -5,7 +5,6 @@ import monopolyLogo from '../../images/monopolyLogo.png'
 
 import { NavLink, useSearchParams } from 'react-router-dom'
 
-
 const Header = () => {
 
   const [searchParams, setSearchParams] = useSearchParams()
