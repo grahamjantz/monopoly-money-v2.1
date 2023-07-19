@@ -7,7 +7,7 @@ import { NavLink, useSearchParams } from 'react-router-dom'
 
 const Header = () => {
 
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const roomId = searchParams.get('room_id')
 
